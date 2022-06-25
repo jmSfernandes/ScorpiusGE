@@ -1,0 +1,26 @@
+version: "2.0"
+services:
+
+  customTemplate:
+    image: marcelo/custom-template
+    hostname: customtemplate
+    container_name: customtemplate
+    restart: always
+    expose:
+    - '80'
+    - '443'
+    environment:
+    #- ASPNETCORE_URLS=https://+;http://+ # if we want https support
+    - Kestrel__Certificates__Default__Path=/app/Certs/cert.pem
+    - Kestrel__Certificates__Default__KeyPath=/app/Certs/key.pem
+    ports:
+    - "80:80"
+    - "9008:443"
+    volumes:
+    - ./CustomTemplate/appsettings-w-https.json:/app/appsettings.json
+    - ./CustomTemplate/Certs/cert.pem:/app/Certs/cert.pem
+    - ./CustomTemplate/Certs/key.pem:/app/Certs/key.pem
+    logging:
+       options:
+         max-size: 50m
+

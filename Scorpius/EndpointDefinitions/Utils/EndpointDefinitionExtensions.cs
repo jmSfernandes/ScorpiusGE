@@ -1,4 +1,4 @@
-﻿namespace SleepDataExporter.Endpoints.Utils;
+﻿namespace Scorpius.EndpointDefinitions.Utils;
 
 public static class EndpointDefinitionExtensions
 {

@@ -6,10 +6,11 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <UserSecretsId>dc97585a-b0d6-44f2-a57f-200c90a90e93</UserSecretsId>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-        <RootNamespace>CustomTemplate</RootNamespace>
+        <RootNamespace>Scorpius</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="FirebaseAdmin" Version="2.3.0" />
         <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.15.1" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
     </ItemGroup>

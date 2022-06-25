@@ -8,16 +8,16 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["CustomTemplate/CustomTemplate.csproj", "CustomTemplate/"]
-RUN dotnet restore "CustomTemplate/CustomTemplate.csproj"
+COPY ["Scorpius/Scorpius.csproj", "Scorpius/"]
+RUN dotnet restore "Scorpius/Scorpius.csproj"
 COPY . .
-WORKDIR "/src/CustomTemplate"
-RUN dotnet build "CustomTemplate.csproj" -c Release -o /app/build
+WORKDIR "/src/Scorpius"
+RUN dotnet build "Scorpius.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "CustomTemplate.csproj" -c Release -o /app/publish
+RUN dotnet publish "Scorpius.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "CustomTemplate.dll"]
+ENTRYPOINT ["dotnet", "Scorpius.dll"]

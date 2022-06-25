@@ -2,9 +2,9 @@ version: "2.0"
 services:
 
   customTemplate:
-    image: marcelo/custom-template
-    hostname: customtemplate
-    container_name: customtemplate
+    image: marcelo-fiware/scorpius
+    hostname: scorpius
+    container_name: scorpius
     restart: always
     expose:
     - '80'
@@ -17,9 +17,9 @@ services:
     - "80:80"
     - "9008:443"
     volumes:
-    - ./CustomTemplate/appsettings-w-https.json:/app/appsettings.json
-    - ./CustomTemplate/Certs/cert.pem:/app/Certs/cert.pem
-    - ./CustomTemplate/Certs/key.pem:/app/Certs/key.pem
+    - ./Scorpius/appsettings-w-https.json:/app/appsettings.json
+    - ./Scorpius/Certs/cert.pem:/app/Certs/cert.pem
+    - ./Scorpius/Certs/key.pem:/app/Certs/key.pem
     logging:
        options:
          max-size: 50m

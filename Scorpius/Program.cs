@@ -1,4 +1,6 @@
-using SleepDataExporter.Endpoints.Utils;
+using FirebaseAdmin;
+using Google.Apis.Auth.OAuth2;
+using Scorpius.EndpointDefinitions.Utils;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +13,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAllEndpointDefinitions();
 
+var adminFire = FirebaseApp.Create(new AppOptions()
+{
+    Credential = GoogleCredential.FromFile(builder.Configuration.GetSection("FirebaseCM")["AppConfig"])
+});
 /* // if you want to filter the endpoints that are enabled;
  builder.Services.AddEndpointDefinitions(new Type[]
 {

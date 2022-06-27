@@ -1,25 +1,26 @@
 version: "2.0"
 services:
 
-  customTemplate:
-    image: marcelo-fiware/scorpius
+  scorpius:
+    image: jmsfernandes-fiware/scorpius
     hostname: scorpius
     container_name: scorpius
     restart: always
     expose:
-    - '80'
-    - '443'
-    environment:
-    #- ASPNETCORE_URLS=https://+;http://+ # if we want https support
-    - Kestrel__Certificates__Default__Path=/app/Certs/cert.pem
-    - Kestrel__Certificates__Default__KeyPath=/app/Certs/key.pem
+      - '80'
+      - '443'
     ports:
-    - "80:80"
-    - "9008:443"
+      - "80:80"
+      - "443:443"
+    environment: # if we dont need/want https support, you can comment all of these lines
+      - ASPNETCORE_URLS=https://+;http://+ 
+      - Kestrel__Certificates__Default__Path=/app/Certs/cert.pem
+      - Kestrel__Certificates__Default__KeyPath=/app/Certs/key.pem
     volumes:
-    - ./Scorpius/appsettings-w-https.json:/app/appsettings.json
-    - ./Scorpius/Certs/cert.pem:/app/Certs/cert.pem
-    - ./Scorpius/Certs/key.pem:/app/Certs/key.pem
+      - ./Scorpius/custom-firebase_admin.json:/app/firebase_admin.json # map your firebase_admin.json config file 
+      - ./Scorpius/custom-notifications.json:/app/notifications.json #map your notification path to inside of the   
+      - ./Scorpius/Certs/cert.pem:/app/Certs/cert.pem #map the certificates and priv key to inside of the container
+      - ./Scorpius/Certs/key.pem:/app/Certs/key.pem
     logging:
        options:
          max-size: 50m

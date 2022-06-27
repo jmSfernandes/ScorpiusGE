@@ -82,24 +82,40 @@ An example of a configuration for an entity of the type questionnaire that has t
     }
   }
  ```
- The notification received by orion should include the attributes used to define the path of the Scorpius notification, 
- as such be aware of the filter in the notification.attrs field  when creating the ORION's subscriptions.
- 
+The notification received by orion should include the attributes used to define the path of the Scorpius notification, 
+as such be aware of the filter in the notification.attrs field  when creating the ORION's subscriptions.
+
+Additionally, there could be an empty definiton, as for the example for the `"course"` entity, in that case all of the default values will be assumed.
+
 
 All of the attributes are straight forward apart from the `shouldSend` which support expressions that can be validated to boolean.
 The expressions can be hard coded or can use attributes of the entity to choose if the notification is sent or not. 
 For instance if we only want to send notifications about can entities that are red:
 ```JSON
 {
-"car":{
-"shouldSend":"{color}==red"
-}
+   "car":{
+      "shouldSend":"{color}==red"
+   }
 }
 ```
 For now this is function only support boolean values (e.g., "true", "false" or attribute mapping that gives those values) 
 or expressions of equality (`==`) and inequality (`!=`).
+If the entity type contains a boolean attribute mapping can also be done directly:
+```JSON
+{
+   "car":{
+      "shouldSend":"{booleanAttr}"
+   }
+}
+```
+
+Negation of attributes (`!`) is not implemented yet as such you the inequality or equality examples should be used `"shouldSend": "{booleanAttr}==false"` or `"shouldSend": "{booleanAttr}!=true"`
 
 This is a smaller use case since ORION subscriptions already allow the filtering of subscription's notification by expressions.
 
-Additionally, there could be an empty definiton, as for the example for the `"course"` entity, in that case all of the default values will be assumed.
+Since The notification definition is made based on the entity type, only one notification per entity type is allowed.
+
+If you required several distinct notification for the same entity type, you should deploy more instances of this GE (each with a ORION subscription). 
+
+
 

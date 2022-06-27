@@ -117,5 +117,11 @@ Since The notification definition is made based on the entity type, only one not
 
 If you required several distinct notification for the same entity type, you should deploy more instances of this GE (each with a ORION subscription). 
 
+## Configure service
+To configure the service you need to replace the firebase-admin.json with your firebase crednetials file.
+If the file as a different name change the mapping in th appsettings.json file, under the FirebaseCM.AppConfig to your file path.
 
+Additionally you need to define your notifications in the notification.json file;
+
+Additionally you need to 
 

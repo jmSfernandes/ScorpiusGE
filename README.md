@@ -139,8 +139,19 @@ clone the repo
 `git clone https://github.com/jmSfernandes/ScorpiusGE.git`
 
 move to the project directory:
-`cd Scorpius\Scorpius`
+`cd ScorpiusGE\Scorpius`
 
+build the project:
+`dotnet build`
+
+Execute project by either running the .exe or the .dll
+```
+//dll 
+dotnet bin\Debug\net6\Scorpius.dll
+
+// windows executable
+bin\Debug\net6\Scorpius.exe
+```
 
 
 ## DOCKER 

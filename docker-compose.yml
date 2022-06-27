@@ -17,7 +17,7 @@ services:
       - Kestrel__Certificates__Default__Path=/app/Certs/cert.pem
       - Kestrel__Certificates__Default__KeyPath=/app/Certs/key.pem
     volumes:
-      - ./Scorpius/***REMOVED***.json:/app/firebase_admin.json # map your firebase_admin.json config file 
+      - ./Scorpius/custom-firebase_admin.json:/app/firebase_admin.json # map your firebase_admin.json config file 
       #- ./Scorpius/custom-notifications.json:/app/notifications.json #map your notification path to inside of the   
       - ./Scorpius/Certs/cert.pem:/app/Certs/cert.pem #map the certificates and priv key to inside of the container
       - ./Scorpius/Certs/key.pem:/app/Certs/key.pem

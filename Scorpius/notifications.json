@@ -8,5 +8,6 @@
   "course": {
     "message": "Update on Course: {name}",
     "type": "new_course"
-  }
+  },
+  "car":{}
 }

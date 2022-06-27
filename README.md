@@ -117,11 +117,32 @@ Since The notification definition is made based on the entity type, only one not
 
 If you required several distinct notification for the same entity type, you should deploy more instances of this GE (each with a ORION subscription). 
 
-## Configure service
+## Run with as a .NET6 service
+
+### Configue files
 To configure the service you need to replace the firebase-admin.json with your firebase crednetials file.
 If the file as a different name change the mapping in th appsettings.json file, under the FirebaseCM.AppConfig to your file path.
 
 Additionally you need to define your notifications in the notification.json file;
 
-Additionally you need to 
+The server runs by default in the port 80(http) and 443(https).
+But you can change this configurations in the 
+### Install .NET6
+To run the Scorpius GE you need to have .Net6 installed. 
+.NET6 is a powerfull cross-platform tool that allows the creation of several types of cross-platform applications, as well as microservices, MVC servers and web pages.
+To download and install the .NET6 to your system follow the instruction from [microsoft website](https://dotnet.microsoft.com/en-us/download/dotnet/6.0) 
 
+If you have Visual studio 2022 or later installed you should be able to also download and install through the VS Installer. 
+
+### Run system
+clone the repo
+`git clone https://github.com/jmSfernandes/ScorpiusGE.git`
+
+move to the project directory:
+`cd Scorpius\Scorpius`
+
+
+
+## DOCKER 
+
+To be added... 

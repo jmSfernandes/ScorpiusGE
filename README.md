@@ -135,16 +135,22 @@ To download and install the .NET6 to your system follow the instruction from [mi
 If you have Visual studio 2022 or later installed you should be able to also download and install through the VS Installer. 
 
 ### Run system
-clone the repo
-`git clone https://github.com/jmSfernandes/ScorpiusGE.git`
+clone the repository:
+```
+git clone https://github.com/jmSfernandes/ScorpiusGE.git
+```
 
 move to the project directory:
-`cd ScorpiusGE\Scorpius`
+```
+cd ScorpiusGE\Scorpius
+```
 
 build the project:
-`dotnet build`
+```
+dotnet build
+```
 
-Execute project by either running the .exe or the .dll
+Execute project by either running the .exe or the .dll:
 ```
 //dll 
 dotnet bin\Debug\net6\Scorpius.dll

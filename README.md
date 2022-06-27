@@ -77,7 +77,7 @@ An example of a configuration for an entity of the type questionnaire that has t
     },
     "course":{},
     "car":{
-      "topic":"car_{type}",
+      "topic":"car_{color}",
       "message": "A new car entity update"
     }
   }

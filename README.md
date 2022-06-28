@@ -3,6 +3,7 @@ A Generic Enabler (GE) compatible with the FIWARE ecosystem to support Firebase 
 
 This GE serves to complement the FIWARE ecosystem. 
 Namely to allow the ORION subscription's notification to be send by Firebase cloud messaging (FCM) to mobile devices.
+An example of a mobile application that can work with this module is on the [ScorpiusClient project](https://github.com/jmSfernandes/ScorpiusClient)
 
 
 ## Simple Messages

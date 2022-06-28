@@ -8,7 +8,7 @@ Namely to allow the ORION subscription's notification to be send by Firebase clo
 ## Simple Messages
 It is also possible to use the `POST /notifyMessage` endpoint to send simple notifications.
 The Request to this endpoint should contain a body with the following structure:
-```JSON
+```json
 {
   "topic": "b3ed663cee243170b55f5f0396905d12",
   "message": "Test with some message"
@@ -22,7 +22,7 @@ Only FCM notification by topic are supported.
 
 For now only ORION subscriptions with the `"attrsFormat":"keyValues"` are supported. 
 That is subscriptions with this format:
-``` JSON
+```json
 {
     "description": "A subscription to send notification by FCM using the scorpius GE",
     "expires": "2040-01-01T14:00:00.00Z",
@@ -67,7 +67,7 @@ The default value for each of them can be seen in the list above.
 
 These values can be hard coded or can be expressions that include the attributes of the entity.
 An example of a configuration for an entity of the type questionnaire that has the attribute course:
- ```JSON
+ ```json
  {
   "questionnaire": {
     "topic": "{course}",
@@ -91,7 +91,7 @@ Additionally, there could be an empty definiton, as for the example for the `"co
 All of the attributes are straight forward apart from the `shouldSend` which support expressions that can be validated to boolean.
 The expressions can be hard coded or can use attributes of the entity to choose if the notification is sent or not. 
 For instance if we only want to send notifications about can entities that are red:
-```JSON
+```json
 {
    "car":{
       "shouldSend":"{color}==red"
@@ -136,22 +136,22 @@ If you have Visual studio 2022 or later installed you should be able to also dow
 
 ### Run system
 clone the repository:
-```
+```bash
 git clone https://github.com/jmSfernandes/ScorpiusGE.git
 ```
 
 move to the project directory:
-```
+```bash
 cd ScorpiusGE\Scorpius
 ```
 
 build the project:
-```
+```bash
 dotnet build
 ```
 
 Execute project by either running the .exe or the .dll:
-```
+```bash
 //dll 
 dotnet bin\Debug\net6\Scorpius.dll
 
@@ -162,4 +162,79 @@ bin\Debug\net6\Scorpius.exe
 
 ## DOCKER 
 
-To be added... 
+The easiest and recommended way to use this component is by using a docker container.
+You can build your own by cloning the code and building the container:
+```bash
+git clone https://github.com/jmSfernandes/ScorpiusGE.git
+cd ScorpiusGE
+docker build -t jmsfernandes/scorpius:latest .
+```
+Or you can pull the latest build from [DockerHub](https://hub.docker.com/r/jmsfernandes/scorpius)
+```shell
+docker pull jmsfernandes/scorpius:latest
+```
+
+The recommended way to use this module is to boot it up with a docker compose script, that you can add to the rest of your services definitions for other FIWARE GE (e.g, ORION, etc..)
+
+```DOCKERFILE
+version: "2.0"
+services:
+
+  scorpius:
+    image: jmsfernandes/scorpius:latest
+    hostname: scorpius
+    container_name: scorpius
+    restart: always
+    expose:
+      - '80'
+      - '443'
+    ports:
+      - "80:80"
+      - "443:443"
+    environment: # if we dont need/want https support, you can comment all of these lines
+      - ASPNETCORE_URLS=https://+;http://+ 
+      - Kestrel__Certificates__Default__Path=/app/Certs/cert.pem
+      - Kestrel__Certificates__Default__KeyPath=/app/Certs/key.pem
+    volumes:
+      - ./Scorpius/custom-firebase_admin.json:/app/firebase_admin.json # map your firebase_admin.json config file 
+      #- ./Scorpius/custom-notifications.json:/app/notifications.json #map your notification path to inside of the   
+      - ./Scorpius/Certs/cert.pem:/app/Certs/cert.pem #map the certificates and priv key to inside of the container
+      - ./Scorpius/Certs/key.pem:/app/Certs/key.pem
+    logging:
+       options:
+         max-size: 50m
+
+```
+
+**Note**: your should replace the `custom-firebase_admin.json` mapping with your firebase admin key file. Otherwise the boot will fail.
+
+You should also uncomment the `custom-notification.json` and mapp it for your own notification definition file.
+
+
+You can then start the service with:
+```bash
+docker-compose up -d
+```
+
+## LICENSE 
+MIT License
+
+Copyright (c) 2022 J. Fernandes
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

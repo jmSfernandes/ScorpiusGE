@@ -1,5 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
-using Scorpius.EndpointDefinitions.Utils;
+﻿using EndpointDefinitions;
+using Newtonsoft.Json.Linq;
 using Scorpius.Models;
 using Scorpius.Services;
 

@@ -1,6 +1,6 @@
 # ScorpiusGE
 [![Docker Version badge](https://img.shields.io/docker/v/jmsfernandes/scorpius/latest)](https://hub.docker.com/r/jmsfernandes/scorpius)
-[![Docker Pulls badge](https://img.shields.io/docker/pulls/jmsfernandes/scorpius)](https://hub.docker.com/r/jmsfernandes/scorpius)
+[![Docker Pulls badge](https://img.shields.io/docker/pulls/jmsfernandes/scorpiu)](https://hub.docker.com/r/jmsfernandes/scorpius)
 
 
 A Generic Enabler (GE) compatible with the FIWARE ecosystem to support Firebase Cloud Messaging. 

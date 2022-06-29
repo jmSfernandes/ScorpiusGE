@@ -13,17 +13,18 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAllEndpointDefinitions();
 
-Console.WriteLine($"Running with Firebase file: {builder.Configuration.GetSection("FirebaseCM")["AppConfig"]}");
+var app = builder.Build();
+app.Logger.LogInformation("Running with Firebase file: {FcmFile}", builder.Configuration.GetSection("FirebaseCM")["AppConfig"]);
+
 
 var adminFire = FirebaseApp.Create(new AppOptions()
 {
     Credential = GoogleCredential.FromFile(builder.Configuration.GetSection("FirebaseCM")["AppConfig"])
 });
 
-var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-Console.WriteLine($"Running with env: {app.Environment.EnvironmentName}");
+app.Logger.LogInformation("Running with env: {EnvName}", app.Environment.EnvironmentName);
 
 if (app.Environment.IsDevelopment())
 {

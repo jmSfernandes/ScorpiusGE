@@ -7,16 +7,18 @@ namespace Scorpius.Services;
 public class FirebaseService : IFirebaseService
 {
     private readonly INotificationParser _notificationParser;
+    private readonly ILogger<FirebaseService> _logger;
 
-    public FirebaseService(INotificationParser notificationParser)
+    public FirebaseService(INotificationParser notificationParser, ILogger<FirebaseService> logger)
     {
-        this._notificationParser = notificationParser;
+        _notificationParser = notificationParser;
+        _logger = logger;
     }
 
     public async Task<IResult> SendNotification(JObject obj)
     {
         var data = new Dictionary<string, string>();
-        string topic = null;
+        string topic;
         try
         {
             var shouldSend = _notificationParser.GetValue(obj, "shouldSend");
@@ -49,10 +51,11 @@ public class FirebaseService : IFirebaseService
         {
             var response = await FirebaseMessaging.DefaultInstance.SendAsync(message);
             // Response is a message ID string.
-            Console.WriteLine("Successfully sent message: " + response);
+            _logger.LogInformation("Successfully sent message: {Response}", response);
         }
-        catch (Exception)
+        catch (Exception ex)
         {
+            _logger.LogError("Something occured while sending your message: {Exception}", ex.Message);
             return Results.Problem("Something occured while sending your message");
         }
 
@@ -77,10 +80,11 @@ public class FirebaseService : IFirebaseService
         {
             var response = await FirebaseMessaging.DefaultInstance.SendAsync(message);
             // Response is a message ID string.
-            Console.WriteLine("Successfully sent message: " + response);
+            _logger.LogInformation("Successfully sent message: {Response}", response);
         }
-        catch (Exception)
+        catch (Exception ex)
         {
+            _logger.LogError("Something occured while sending your message: {Exception}", ex.Message);
             return Results.Problem("Something occured while sending your message");
         }
 
